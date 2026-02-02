@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNR | ENGINEER</title>
+    <style>
+        :root {
+            /* Light Mode (Default) */
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --secondary-color: #666666;
+            --line-color: #e5e5e5;
+            --tag-bg: #f4f4f4;
+            --link-hover: #000000;
+            --spacing-unit: 2rem;
+        }
+
+        /* Dark Mode Overrides */
+        [data-theme="dark"] {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --secondary-color: #888888;
+            --line-color: #2a2a2a;
+            --tag-bg: #1a1a1a;
+            --link-hover: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* THEME TOGGLE BUTTON */
+        .theme-switch-wrapper {
+            position: absolute;
+            top: 4rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--line-color);
+            color: var(--secondary-color);
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--text-color);
+            color: var(--text-color);
+        }
+
+        /* TYPOGRAPHY */
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            margin-top: 4rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            max-width: 600px;
+            color: var(--text-color); /* Updated to use variable */
+            opacity: 0.9;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* LINKS */
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-color);
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: var(--link-hover);
+        }
+
+        /* GRID SYSTEM */
+        .section-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .entry {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+
+        .entry-label {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 600px) {
+            .entry {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 2rem;
+            }
+            .wrapper {
+                padding: 2rem 1.5rem;
+            }
+            .theme-switch-wrapper {
+                top: 2rem;
+                right: 1.5rem;
+            }
+        }
+
+        /* UTILITY */
+        .tag-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: var(--tag-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--secondary-color);
+            transition: background 0.3s ease;
+        }
+
+        .status-tag {
+            font-size: 0.7rem;
+            border: 1px solid var(--line-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: auto;
+            padding-top: 6rem;
+            padding-bottom: 2rem;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid var(--line-color);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- THEME TOGGLE -->
+        <div class="theme-switch-wrapper">
+            <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()">Mode: Light</button>
+        </div>
+
+        <!-- HEADER -->
+        <header style="margin-bottom: 4rem;">
+            <h1>Utkarsh Nagar</h1>
+            <p style="font-size: 1.1rem; color: var(--secondary-color);">
+                Engineer & Artist<br>
+                Bengaluru, IN
+            </p>
+        </header>
+
+        <!-- INTRODUCTION -->
+        <section>
+            <p>
+                Operating at the intersection of infrastructure and precision engineering. 
+                Applying first principles to solve complex technical problems, manage global systems at scale, 
+                and ensure operational reliability.
+            </p>
+        </section>
+
+        <!-- ENGINEERING -->
+        <section>
+            <h2>01 / Experience</h2>
+            <div class="section-grid">
+                
+                <div class="entry">
+                    <div class="entry-label">2022 — Present</div>
+                    <div>
+                        <h3>Google</h3>
+                        <span class="meta">Corporate Operations Engineer (L3)</span>
+                        <p>Managing global infrastructure at scale. Resolving complex technical issues across Linux/Mac/Windows platforms and building internal tooling to optimize workflows.</p>
+                        <div class="tag-container">
+                            <span class="tag">Infrastructure</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">MacOS</span>
+                            <span class="tag">Windows</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-label">2019 — 2022</div>
+                    <div>
+                        <h3>Security Research</h3>
+                        <span class="meta">Bug Bounty</span>
+                        <p>Acknowledged by Apple for web server security vulnerabilities. Specialized in OWASP Top 10, Burp Suite pen-testing, and responsible disclosure protocols.</p>
+                        <div class="tag-container">
+                            <span class="tag">Pen-Testing</span>
+                            <span class="tag">Apple Hall of Fame</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-label">2019 — 2020</div>
+                    <div>
+                        <h3>App Development</h3>
+                        <span class="meta">Freelance</span>
+                        <p>Built and scaled utility apps to 10k+ downloads on the Play Store. Handled full-cycle development from Java/Kotlin code to AdMob monetization strategies.</p>
+                        <div class="tag-container">
+                            <span class="tag">Android</span>
+                            <span class="tag">Monetization</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VENTURES -->
+        <section>
+            <h2>02 / Ventures</h2>
+            <div class="section-grid">
+                
+                <div class="entry">
+                    <div class="entry-label"><span class="status-tag">Coming Soon</span></div>
+                    <div>
+                        <h3>scythians.in</h3>
+                        <span class="meta">Visual & Narrative</span>
+                        <p>A curated archive of philosophy, travel logs, and visual documentation.</p>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-label"><span class="status-tag">Coming Soon</span></div>
+                    <div>
+                        <h3>rakm.in</h3>
+                        <span class="meta">Commercial</span>
+                        <p>Digital products and monetization infrastructure.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div>
+                © 2026 unr@ <br>
+                Memento Mori.
+            </div>
+            <div class="footer-links">
+                <a href="mailto:utkarshnagar8684@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/utkarshnagar6/">LinkedIn</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved user preference, if any, on load
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+        if (currentTheme) {
+            htmlElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                toggleButton.textContent = 'Mode: Dark';
+            }
+        }
+
+        function toggleTheme() {
+            const current = htmlElement.getAttribute('data-theme');
+            if (current === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                toggleButton.textContent = 'Mode: Light';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleButton.textContent = 'Mode: Dark';
+            }
+        }
+    </script>
+
+</body>
+</html>
